@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hind_Siliguri } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar";
@@ -26,7 +27,9 @@ export default function RootLayout({
   return (
     <html lang="bn" className={`${hind.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <Navbar />
+        <Suspense fallback={null}>
+          <Navbar />
+        </Suspense>
         <Marque />
         <main className="flex-1">{children}</main>
         <Footer />

@@ -14,12 +14,11 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const [categories, setCategories] = useState<ICategory[]>([]);
-  const [dateText, setDateText] = useState("");
+  const [dateText] = useState(() => todayBn());
 
   const { data: session, isPending } = useSession();
 
   useEffect(() => {
-    setDateText(todayBn());
     getCategories().then(setCategories);
   }, []);
 

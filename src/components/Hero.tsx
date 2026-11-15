@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { todayBn } from "@/lib/format";
 
 function BasketIllustration() {
@@ -48,8 +48,7 @@ function BasketIllustration() {
 }
 
 export default function HeroSection() {
-  const [dateText, setDateText] = useState("");
-  useEffect(() => setDateText(todayBn()), []);
+  const [dateText] = useState(() => todayBn());
 
   return (
     <section className="w-full pt-6 sm:pt-8">

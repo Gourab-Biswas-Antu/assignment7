@@ -28,7 +28,9 @@ export default function SignInForm() {
   const [loading, setLoading] = useState(false);
   const toasted = useRef(false);
 
-  // toast shown when the proxy redirected an anonymous user from a protected route
+  const redirectPath = searchParams.get("next") || "/";
+
+  // toast shown when a user is redirected to sign in from a protected or gated page
   useEffect(() => {
     if (searchParams.get("redirected") && !toasted.current) {
       toasted.current = true;
@@ -53,7 +55,7 @@ export default function SignInForm() {
       return;
     }
     toast.success("সফলভাবে সাইন ইন হয়েছে");
-    router.push("/");
+    router.push(redirectPath);
     router.refresh();
   };
 
