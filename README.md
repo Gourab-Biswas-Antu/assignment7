@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 বাজার দর (BazarDor)
 
-## Getting Started
+> প্রয়োজনীয় পণ্যের দাম এক নজরে।
 
-First, run the development server:
+**BazarDor** is a Bangla grocery price tracker. It shows today's price, daily
+price change, and market-wise price breakdown for rice, pulses, oil,
+vegetables, fish, meat, eggs/dairy and spices — all in one place.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Live Link:** _add your deployed link here_
+- **GitHub Repository:** _add your repository link here_
+
+---
+
+## ✨ Key Features
+
+1. **Live price ticker** – an infinite scrolling strip under the navbar showing
+   emoji, name, price per unit and ▲/▼ percentage change.
+2. **Today's movers** – top 6 price risers and top 6 price fallers on the home
+   page, plus a full responsive grid of all products (Bengali digits everywhere).
+3. **Category pages with sorting** – sort by default, price low → high or price
+   high → low. Sorting is numeric, so Bengali-digit prices sort correctly.
+4. **Market-wise product details** – protected page with minimum, maximum and
+   average price plus a table of prices from different bazars.
+5. **Authentication with BetterAuth** – email/password, Google and GitHub
+   login, toast notifications, and protected-route redirects.
+6. **Update profile** – edit your name from the profile page (BetterAuth
+   `updateUser`).
+7. **Skeleton loaders & 404 pages** – skeletons while data loads, friendly 404
+   for invalid category / product routes with a “হোম পেজে ফিরে যান” button.
+8. **Fully responsive** – mobile, tablet and desktop.
+
+## 🛠️ Technologies Used
+
+| Purpose            | Technology                              |
+| ------------------ | --------------------------------------- |
+| Framework          | Next.js (App Router), React, TypeScript |
+| Styling            | Tailwind CSS, HeroUI                    |
+| Authentication     | BetterAuth + MongoDB adapter            |
+| Notifications      | react-hot-toast                         |
+| Ticker             | react-fast-marquee                      |
+| Icons              | lucide-react, react-icons               |
+| Deployment         | Vercel                                  |
+
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── (auth)/
+│   │   ├── signin/            # sign in page
+│   │   ├── signup/            # sign up page
+│   │   └── profile/
+│   │       ├── page.tsx       # my profile
+│   │       └── update-profile/page.tsx
+│   ├── api/auth/[...all]/     # BetterAuth route handler
+│   ├── category/[slug]/       # category page (+ loading, not-found)
+│   ├── product/[slug]/        # product details (+ loading, not-found)
+│   ├── layout.tsx
+│   ├── loading.tsx
+│   ├── not-found.tsx
+│   └── page.tsx               # home
+├── components/                # Navbar, Marque, Hero, ProductCard, sections, Footer…
+├── lib/                       # auth, auth-client, api, format helpers
+├── types/type.ts
+└── proxy.ts                   # protects /product/* and /profile/*
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔌 API
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Base URL: `https://openapi.programming-hero.com/api/bazardor`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Endpoint                    | Description        |
+| --------------------------- | ------------------ |
+| `/products`                 | All products       |
+| `/products?category=chal`   | Filter by category |
+| `/products/:id`             | Single product     |
+| `/categories`               | All categories     |
+| `/categories/:slug`         | Single category    |
 
-## Learn More
+## 🚀 Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install
+cp .env.example .env.local   # then fill in the values
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Environment variables
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `NEXT_PUBLIC_API_URL`
+- `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `NEXT_PUBLIC_BETTER_AUTH_URL`
+- `MONGO_URI`
+- `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
+- `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+OAuth callback URLs: `<BETTER_AUTH_URL>/api/auth/callback/google` and
+`<BETTER_AUTH_URL>/api/auth/callback/github`.
+
+## ☁️ Deployment (Vercel)
+
+Add all environment variables in the Vercel project settings, set
+`BETTER_AUTH_URL` / `NEXT_PUBLIC_BETTER_AUTH_URL` to the deployed URL, and add
+the deployed callback URLs to your Google and GitHub OAuth apps. Dynamic
+`[slug]` routes are server-rendered, so refreshing any page works.
+
+---
+
+_সকল দাম সম্ভাব্য; বাজার অবস্থার ওপর নির্ভর করে পরিবর্তিত হয়।_
