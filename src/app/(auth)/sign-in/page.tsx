@@ -9,12 +9,13 @@ import {
   Input,
   Label,
   TextField,
+  Toast,
 } from "@heroui/react";
 import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 import { signIn } from "@/lib/auth-client";
-import toast from "react-hot-toast";
+import {toast} from "react-hot-toast";
 
 const inputClass =
   "w-full h-11 px-3.5 rounded-xl bg-[#f6f8f6] border border-slate-200 text-sm text-slate-800 placeholder:text-slate-400 hover:border-slate-300 focus:border-emerald-600 focus:bg-white focus:ring-4 focus:ring-emerald-600/10 focus:outline-none transition";
@@ -40,6 +41,7 @@ export default function SignInPage() {
 
     if (error) {
       toast.error(error.message || "সাইন ইন করা যায়নি");
+    
     }
   };
 
